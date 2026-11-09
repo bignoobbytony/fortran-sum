@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>薛琮霖、414216522、100分</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #5d6675;
+    --line: #dde1e7; --accent: #2457c5; --pass: #1f7a3f; --pass-bg: #e6f4ea;
+    --fail: #b3261e; --fail-bg: #fce8e6; --code-bg: #f1f3f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171c; --card: #1c2027; --text: #e6e9ee; --muted: #9aa3b2;
+      --line: #2e343e; --accent: #7aa2ff; --pass: #6fd08f; --pass-bg: #1d3326;
+      --fail: #ff8a80; --fail-bg: #3a1f1e; --code-bg: #232831;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171c; --card: #1c2027; --text: #e6e9ee; --muted: #9aa3b2;
+    --line: #2e343e; --accent: #7aa2ff; --pass: #6fd08f; --pass-bg: #1d3326;
+    --fail: #ff8a80; --fail-bg: #3a1f1e; --code-bg: #232831;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.7 "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  }
+  main { max-width: 880px; margin: 0 auto; padding: 32px 16px 64px; }
+  header h1 { margin: 0 0 4px; font-size: 1.7rem; }
+  header p { margin: 0; color: var(--muted); }
+  .total {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    margin: 20px 0 28px; padding: 16px 20px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 10px;
+  }
+  .total strong { font-size: 2.4rem; color: var(--accent); line-height: 1; }
+  section {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 20px; margin-bottom: 20px;
+  }
+  section h2 { margin: 0 0 6px; font-size: 1.2rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .q { color: var(--muted); margin: 0 0 12px; }
+  h3 { font-size: 1rem; margin: 18px 0 6px; }
+  pre {
+    background: var(--code-bg); border-radius: 8px; padding: 12px 14px;
+    overflow-x: auto; font: 13.5px/1.55 Consolas, "Courier New", monospace; margin: 0;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; }
+  .tbl { overflow-x: auto; }
+  .badge { font-size: .85rem; font-weight: 600; padding: 2px 10px; border-radius: 99px; white-space: nowrap; }
+  .pass { color: var(--pass); background: var(--pass-bg); }
+  .fail { color: var(--fail); background: var(--fail-bg); }
+  .grader label { display: block; font-size: .9rem; color: var(--muted); margin-top: 8px; }
+  .grader input[type=text], .grader input[type=number] {
+    width: 100%; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px;
+    background: var(--bg); color: var(--text); font: inherit;
+  }
+  .grader .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .grader fieldset { border: 1px solid var(--line); border-radius: 8px; margin: 12px 0; padding: 10px 14px 14px; }
+  .grader legend { font-weight: 600; padding: 0 6px; }
+  .check { display: flex; gap: 8px; align-items: center; margin-top: 8px; color: var(--text) !important; }
+  .msg { margin-top: 8px; font-size: .9rem; }
+  button {
+    margin-top: 12px; padding: 9px 18px; border: 0; border-radius: 8px;
+    background: var(--accent); color: var(--card); font: inherit; font-weight: 600; cursor: pointer;
+  }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .9rem; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>目標達成評分制：Fortran 1 加到 N</h1>
+    <p>姓名：薛琮霖 ・ 學號：414216522 ・ GitHub：<a href="https://github.com/bignoobbytony/fortran-sum">bignoobbytony/fortran-sum</a></p>
+  </header>
+
+  <div class="total">
+    <span>總分</span><strong id="total">100</strong><span>/ 100</span>
+    <span id="totalNote" style="color:var(--muted)">（第一至四題由下方評分系統自動計分，第五題由 AI 評定）</span>
+  </div>
+
+  <!-- 第一題 -->
+  <section>
+    <h2>一、Fortran 程式撰寫與編譯 <span class="badge" id="b1">—</span></h2>
+    <p class="q">題目：指揮 AI 輸出一個能做 1 加到 N 的 Fortran 程式並完成編譯，確認可以成功執行計算並輸出結果。（20 分）</p>
+    <h3>程式碼（原版 v1）</h3>
+<pre>program sum_n
+  implicit none
+  integer(kind=8) :: n, i, total
+
+  write(*,'(A)', advance='no') 'Enter N: '
+  read(*,*) n
+
+  if (n &lt; 1) then
+    write(*,'(A)') 'N must be a positive integer.'
+    stop
+  end if
+
+  total = 0
+  do i = 1, n
+    total = total + i
+  end do
+
+  write(*,'(A,I0,A,I0)') 'Sum of 1 to ', n, ' = ', total
+end program sum_n</pre>
+    <h3>編譯與執行過程</h3>
+<pre>&gt; gfortran --version
+GNU Fortran (conda-forge gcc 16.2.0-7) 16.2.0
+&gt; gfortran sum_n.f90 -o sum_n.exe
+（編譯成功，無錯誤）
+&gt; sum_n.exe
+Enter N: 10
+Sum of 1 to 10 = 55</pre>
+  </section>
+
+  <!-- 第二題 -->
+  <section>
+    <h2>二、三次隨機驗證 <span class="badge" id="b2">—</span></h2>
+    <p class="q">題目：指揮 AI 執行該程式進行三次隨機的驗證，以確定該程式功能的正確性。（20 分）</p>
+    <p>做法：每次隨機產生 1～100000 間的 N，交給 <code>sum_n.exe</code> 執行，再以高斯公式 N(N+1)/2 比對。</p>
+    <div class="tbl"><table>
+      <tr><th>次數</th><th>隨機 N</th><th>程式輸出</th><th>公式 N(N+1)/2</th><th>結果</th></tr>
+      <tr><td>1</td><td>65470</td><td>2143193185</td><td>2143193185</td><td>PASS</td></tr>
+      <tr><td>2</td><td>3762</td><td>7078203</td><td>7078203</td><td>PASS</td></tr>
+      <tr><td>3</td><td>8628</td><td>37225506</td><td>37225506</td><td>PASS</td></tr>
+    </table></div>
+  </section>
+
+  <!-- 第三題 -->
+  <section>
+    <h2>三、Git 版本控制與逐行註解 <span class="badge" id="b3">—</span></h2>
+    <p class="q">題目：針對所開發的程式進行 Git 版本控制，將原版認錄（commit），之後指揮 AI 針對原程式碼進行逐行註解並編譯驗證成功後，再次認錄為新版。（20 分）</p>
+    <h3>過程</h3>
+<pre>&gt; git init -b main
+&gt; git add sum_n.f90 .gitignore
+&gt; git commit -m "v1: Fortran program to sum 1 to N"
+（加上逐行註解）
+&gt; gfortran -Wall sum_n.f90 -o sum_n.exe     ← 編譯成功，無警告
+&gt; sum_n.exe   →  Sum of 1 to 10 = 55 ；Sum of 1 to 100 = 5050
+&gt; git commit -am "v2: add line-by-line comments"
+&gt; git log --oneline
+c428d7b v2: add line-by-line comments
+aba9b7f v1: Fortran program to sum 1 to N</pre>
+    <h3>加註解後的程式（新版 v2）</h3>
+<pre>program sum_n                                   ! 程式開始，程式名稱為 sum_n
+  implicit none                                 ! 關閉隱含型別，所有變數都必須明確宣告
+  integer(kind=8) :: n, i, total                ! 宣告 64 位元整數：n 為上限、i 為迴圈計數、total 為累加和
+
+  write(*,'(A)', advance='no') 'Enter N: '      ! 輸出提示文字，且不換行，讓使用者在同一行輸入
+  read(*,*) n                                   ! 從鍵盤讀入使用者輸入的 N
+
+  if (n &lt; 1) then                               ! 檢查 N 是否小於 1（不合法的輸入）
+    write(*,'(A)') 'N must be a positive integer.' ! 輸出錯誤訊息，提示 N 必須為正整數
+    stop                                        ! 結束程式執行
+  end if                                        ! 結束 if 判斷區塊
+
+  total = 0                                     ! 將累加和初始化為 0
+  do i = 1, n                                   ! 迴圈：i 從 1 跑到 n
+    total = total + i                           ! 每次把目前的 i 加進累加和
+  end do                                        ! 結束 do 迴圈
+
+  write(*,'(A,I0,A,I0)') 'Sum of 1 to ', n, ' = ', total ! 依格式輸出結果：文字、N、文字、總和
+end program sum_n                               ! 程式結束</pre>
+  </section>
+
+  <!-- 第四題 -->
+  <section>
+    <h2>四、推送到 GitHub 雲端儲存 <span class="badge" id="b4">—</span></h2>
+    <p class="q">題目：將本地端已經進行版本控制的程式碼，傳送到 GitHub 做雲端儲存。（20 分）</p>
+<pre>&gt; git remote add origin https://github.com/bignoobbytony/fortran-sum.git
+&gt; git push -u origin main
+To https://github.com/bignoobbytony/fortran-sum.git
+ * [new branch]      main -&gt; main
+&gt; git ls-remote origin
+c428d7b4589e8de79f34ca552856fd210f9ef064   refs/heads/main   ← 與本地 v2 相同</pre>
+    <p>雲端位置：<a href="https://github.com/bignoobbytony/fortran-sum">https://github.com/bignoobbytony/fortran-sum</a></p>
+  </section>
+
+  <!-- 第五題 -->
+  <section class="grader">
+    <h2>五、任務達成評分系統 <span class="badge" id="b5">—</span></h2>
+    <p class="q">題目：要求 AI 做一個任務達成評分系統，允許輸入前四題的結果，達標就給分。（20 分）</p>
+    <p>下方欄位已填入本次實際結果，可自行修改後按「重新評分」。系統會依達標條件自動計分。</p>
+
+    <fieldset>
+      <legend>第一題：編譯與執行（達標條件：編譯成功，且輸出 = N(N+1)/2）</legend>
+      <label class="check"><input type="checkbox" id="q1c" checked> 編譯成功</label>
+      <div class="row">
+        <div><label for="q1n">測試 N</label><input type="number" id="q1n" value="10"></div>
+        <div><label for="q1o">程式輸出</label><input type="text" id="q1o" value="55"></div>
+      </div>
+      <div class="msg" id="m1"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>第二題：三次隨機驗證（達標條件：三次輸出皆 = N(N+1)/2）</legend>
+      <div class="row">
+        <div><label for="q2n1">N₁</label><input type="number" id="q2n1" value="65470"></div>
+        <div><label for="q2o1">輸出₁</label><input type="text" id="q2o1" value="2143193185"></div>
+      </div>
+      <div class="row">
+        <div><label for="q2n2">N₂</label><input type="number" id="q2n2" value="3762"></div>
+        <div><label for="q2o2">輸出₂</label><input type="text" id="q2o2" value="7078203"></div>
+      </div>
+      <div class="row">
+        <div><label for="q2n3">N₃</label><input type="number" id="q2n3" value="8628"></div>
+        <div><label for="q2o3">輸出₃</label><input type="text" id="q2o3" value="37225506"></div>
+      </div>
+      <div class="msg" id="m2"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>第三題：Git 版本控制（達標條件：兩個不同的 commit，且註解版編譯成功）</legend>
+      <div class="row">
+        <div><label for="q3a">原版 commit</label><input type="text" id="q3a" value="aba9b7f"></div>
+        <div><label for="q3b">註解版 commit</label><input type="text" id="q3b" value="c428d7b"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="q3c" checked> 註解版編譯驗證成功</label>
+      <div class="msg" id="m3"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>第四題：GitHub 雲端儲存（達標條件：有效的 GitHub repo 網址，且已推送）</legend>
+      <label for="q4u">Repository 網址</label>
+      <input type="text" id="q4u" value="https://github.com/bignoobbytony/fortran-sum">
+      <label class="check"><input type="checkbox" id="q4c" checked> 已成功 git push</label>
+      <div class="msg" id="m4"></div>
+    </fieldset>
+
+    <button id="grade">重新評分</button>
+    <div class="msg" id="sysTotal"></div>
+  </section>
+
+  <!-- AI 評分結果 -->
+  <section>
+    <h2>AI 評分結果</h2>
+    <div class="tbl"><table>
+      <tr><th>題目</th><th>評語</th><th>得分</th></tr>
+      <tr><td>一</td><td>程式以 gfortran 16.2 編譯成功，N=10 輸出 55，正確。</td><td id="s1">20</td></tr>
+      <tr><td>二</td><td>三組隨機 N 的輸出皆與 N(N+1)/2 相符；最大一組接近 32 位元上限，64 位元整數處理正確。</td><td id="s2">20</td></tr>
+      <tr><td>三</td><td>v1 原版與 v2 逐行註解版分別認錄，v2 以 -Wall 編譯無警告並通過測試。</td><td id="s3">20</td></tr>
+      <tr><td>四</td><td>已推送至 GitHub，遠端 main 與本地 v2（c428d7b）一致。</td><td id="s4">20</td></tr>
+      <tr><td>五</td><td>評分系統可輸入前四題結果，依達標條件自動判定並計分（即本頁上方系統）。</td><td id="s5">20</td></tr>
+      <tr><th colspan="2">總分</th><th id="sT">100</th></tr>
+    </table></div>
+  </section>
+
+  <footer>薛琮霖 ・ 414216522</footer>
+</main>
+
+<script>
+  const $ = id => document.getElementById(id);
+  // 以 BigInt 計算 N(N+1)/2，避免大數誤差
+  const expected = n => { const b = BigInt(n); return (b * (b + 1n) / 2n).toString(); };
+  const okSum = (n, out) => {
+    if (!/^\d+$/.test(String(n).trim()) || Number(n) < 1) return false;
+    return String(out).trim() === expected(String(n).trim());
+  };
+  const badge = (id, pass) => {
+    const el = $(id);
+    el.textContent = pass ? "達標 20 / 20" : "未達標 0 / 20";
+    el.className = "badge " + (pass ? "pass" : "fail");
+  };
+  const msg = (id, pass, text) => {
+    $(id).innerHTML = `<span class="badge ${pass ? "pass" : "fail"}">${pass ? "達標 +20" : "未達標 +0"}</span> ${text}`;
+  };
+
+  function grade() {
+    // 第一題
+    const n1 = $("q1n").value, o1 = $("q1o").value;
+    const p1 = $("q1c").checked && okSum(n1, o1);
+    msg("m1", p1, /^\d+$/.test(n1) ? `期望值 ${expected(n1)}，輸入 ${o1 || "（空白）"}` : "請輸入正整數 N");
+
+    // 第二題
+    const rows = [1, 2, 3].map(k => [$("q2n" + k).value, $("q2o" + k).value]);
+    const results = rows.map(([n, o]) => okSum(n, o));
+    const p2 = results.every(Boolean);
+    msg("m2", p2, results.map((r, i) => `第${i + 1}次 ${r ? "✓" : "✗"}`).join("、"));
+
+    // 第三題
+    const hex = /^[0-9a-f]{7,40}$/i;
+    const a = $("q3a").value.trim(), b = $("q3b").value.trim();
+    const p3 = hex.test(a) && hex.test(b) && a.toLowerCase() !== b.toLowerCase() && $("q3c").checked;
+    msg("m3", p3, p3 ? "兩個版本皆已認錄" : "需兩個不同的 commit 雜湊（7 碼以上十六進位），並勾選編譯成功");
+
+    // 第四題
+    const url = $("q4u").value.trim();
+    const p4 = /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/?$/.test(url) && $("q4c").checked;
+    msg("m4", p4, p4 ? "雲端儲存位置有效" : "需填入 https://github.com/帳號/專案 格式的網址，並勾選已推送");
+
+    const passes = [p1, p2, p3, p4];
+    passes.forEach((p, i) => { badge("b" + (i + 1), p); $("s" + (i + 1)).textContent = p ? 20 : 0; });
+    badge("b5", true);  // 評分系統本身已完成
+    const total = passes.filter(Boolean).length * 20 + 20;
+    $("total").textContent = total;
+    $("sT").textContent = total;
+    $("sysTotal").innerHTML = `評分系統計分（第一至四題）：<strong>${total - 20}</strong> / 80`;
+  }
+
+  $("grade").addEventListener("click", grade);
+  grade();
+</script>
+</body>
+</html>
